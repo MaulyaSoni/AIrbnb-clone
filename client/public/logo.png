@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" width="120" height="40">
+  <rect width="120" height="40" fill="#ffffff"/>
+  <path d="M60,10 C55,10 50,15 50,20 C50,25 55,30 60,30 C65,30 70,25 70,20 C70,15 65,10 60,10 Z M60,28 C56.13,28 52,24.87 52,20 C52,15.13 56.13,12 60,12 C63.87,12 68,15.13 68,20 C68,24.87 63.87,28 60,28 Z" fill="#FF5A5F"/>
+  <text x="10" y="25" font-family="Arial" font-size="12" font-weight="bold" fill="#484848">Airbnb Clone</text>
+</svg>

@@ -1,0 +1,250 @@
+/* Responsive Design Improvements */
+
+/* Mobile First Approach */
+@media (max-width: 640px) {
+  .mobile-full-width {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    border-radius: 0 !important;
+  }
+  
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+  
+  .mobile-hidden {
+    display: none !important;
+  }
+  
+  .mobile-text-center {
+    text-align: center !important;
+  }
+  
+  .mobile-p-4 {
+    padding: 1rem !important;
+  }
+  
+  .mobile-my-2 {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .mobile-w-full {
+    width: 100% !important;
+  }
+  
+  .mobile-text-sm {
+    font-size: 0.875rem !important;
+    line-height: 1.25rem !important;
+  }
+}
+
+/* Tablet Specific */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .tablet-grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  
+  .tablet-p-6 {
+    padding: 1.5rem !important;
+  }
+  
+  .tablet-text-base {
+    font-size: 1rem !important;
+    line-height: 1.5rem !important;
+  }
+}
+
+/* Responsive Container */
+.responsive-container {
+  width: 100%;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 640px) {
+  .responsive-container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .responsive-container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .responsive-container {
+    max-width: 1280px;
+  }
+}
+
+/* Responsive Typography */
+.responsive-heading-1 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .responsive-heading-1 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-heading-1 {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+
+.responsive-heading-2 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .responsive-heading-2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+/* Responsive Spacing */
+.responsive-spacing {
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .responsive-spacing {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-spacing {
+    padding: 2rem;
+  }
+}
+
+/* Responsive Grid */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .responsive-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .responsive-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Responsive Flex */
+.responsive-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .responsive-flex {
+    flex-direction: row;
+  }
+}
+
+/* Responsive Images */
+.responsive-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.responsive-image-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  overflow: hidden;
+}
+
+.responsive-image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive Navigation */
+.responsive-nav {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .responsive-nav {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.responsive-nav-links {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+}
+
+.responsive-nav-links.open {
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .responsive-nav-links {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+  }
+}
+
+.responsive-nav-toggle {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .responsive-nav-toggle {
+    display: none;
+  }
+}

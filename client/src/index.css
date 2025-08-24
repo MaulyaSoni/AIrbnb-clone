@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import enhanced UI styles */
+@import './styles/enhanced-ui.css';
+/* Import responsive styles */
+@import './styles/responsive.css';
+/* Import contrast fixes */
+@import './styles/contrast-fix.css';
+
+@layer base {
+  body {
+    font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-airbnb-pink hover:bg-airbnb-red text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200;
+  }
+  
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-airbnb-dark font-medium py-3 px-6 rounded-lg border border-gray-300 transition-colors duration-200;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-airbnb hover:shadow-airbnb-hover transition-shadow duration-200;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-airbnb-pink focus:border-transparent outline-none transition-all duration-200;
+  }
+}

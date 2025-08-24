@@ -1,0 +1,41 @@
+/* Text Contrast Improvements */
+
+/* Improve text contrast for better accessibility */
+.text-gray-400 {
+  color: #6b7280 !important; /* Darker than default gray-400 */
+}
+
+.text-gray-500 {
+  color: #4b5563 !important; /* Darker than default gray-500 */
+}
+
+.text-gray-600 {
+  color: #374151 !important; /* Darker than default gray-600 */
+}
+
+/* Improve contrast for links */
+a.hover\:text-gray-300:hover {
+  color: #d1d5db !important; /* Lighter than default gray-300 for better visibility */
+}
+
+/* Improve contrast for badges */
+.badge-warning {
+  background-color: #fef3c7 !important;
+  color: #92400e !important; /* Darker than default yellow-800 */
+}
+
+.badge-secondary {
+  background-color: #f3f4f6 !important;
+  color: #1f2937 !important; /* Darker than default gray-800 */
+}
+
+/* Improve contrast for form elements */
+.form-label {
+  color: #111827 !important; /* Darker than default gray-700 */
+}
+
+/* Improve contrast for placeholder text */
+::placeholder {
+  color: #6b7280 !important; /* Darker than default placeholder color */
+  opacity: 1;
+}
