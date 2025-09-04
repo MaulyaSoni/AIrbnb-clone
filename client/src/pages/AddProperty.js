@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { FaHome, FaMapMarkerAlt, FaDollarSign, FaBed, FaBath, FaUsers, FaUpload, FaSave } from 'react-icons/fa';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
+import axios from 'axios';
 
 const AddProperty = () => {
   const { user } = useAuth();
@@ -163,7 +164,8 @@ const AddProperty = () => {
         images: filteredImages
       };
 
-      const response = await axios.post('/api/properties', propertyData, {
+      const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5001';
+      const response = await axios.post(`${API_BASE_URL}/api/properties`, propertyData, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
 

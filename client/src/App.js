@@ -1,28 +1,27 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import ResponsiveNavbar from './components/ResponsiveNavbar';
-import ResponsiveFooter from './components/ResponsiveFooter';
-import AnimatedRoutes from './components/AnimatedRoutes';
-import ScrollToTop from './components/ScrollToTop';
-import BackToTop from './components/BackToTop';
-import { AuthProvider } from './context/AuthContext';
-
+import React from "react";
+import { Toaster } from "react-hot-toast";
+import Footer from "./components/Footer";
+import AnimatedRoutes from "./components/AnimatedRoutes";
+import ScrollToTop from "./components/ScrollToTop";
+import BackToTop from "./components/BackToTop";
+import { AuthProvider } from "./context/AuthContext";
+import StripeProvider from "./components/payments/StripeProvider";
+import Navbarcomponents from "./components/Navbar";
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <ScrollToTop />
-        <div className="min-h-screen bg-gray-50">
-          <ResponsiveNavbar />
-          <main className="pt-16">
+      <ScrollToTop />
+      <div className="min-h-screen bg-gray-50">
+        <Navbarcomponents/>
+        <main className="pt-16">
+          <StripeProvider>
             <AnimatedRoutes />
-          </main>
-          <ResponsiveFooter />
-          <BackToTop />
-          <Toaster position="top-right" />
-        </div>
-      </Router>
+          </StripeProvider>
+        </main>
+        <Footer/>
+        <BackToTop />
+        <Toaster position="top-right" />
+      </div>
     </AuthProvider>
   );
 }

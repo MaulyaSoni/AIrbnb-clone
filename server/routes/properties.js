@@ -110,6 +110,21 @@ router.get('/', [
   }
 });
 
+// @route   GET /api/properties/my-properties
+// @desc    Get properties owned by the authenticated user
+// @access  Private
+router.get('/my-properties', auth, async (req, res) => {
+  try {
+    const properties = await Property.find({ host: req.user.id })
+      .sort({ createdAt: -1 });
+
+    res.json(properties);
+  } catch (error) {
+    console.error('Get my properties error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // @route   GET /api/properties/featured
 // @desc    Get featured properties
 // @access  Public
@@ -223,8 +238,28 @@ router.post('/', auth, authorize('user', 'host', 'admin'), [
 // @route   PUT /api/properties/:id
 // @desc    Update property
 // @access  Private (Property owner only)
-router.put('/:id', auth, async (req, res) => {
+router.put('/:id', auth, [
+  body('title').optional().trim().isLength({ min: 5, max: 100 }).withMessage('Title must be between 5 and 100 characters'),
+  body('description').optional().trim().isLength({ min: 20, max: 1000 }).withMessage('Description must be between 20 and 1000 characters'),
+  body('type').optional().isIn(['apartment', 'house', 'villa', 'cabin', 'condo', 'loft', 'studio', 'other']).withMessage('Invalid property type'),
+  body('location.address').optional().trim().notEmpty().withMessage('Address is required'),
+  body('location.city').optional().trim().notEmpty().withMessage('City is required'),
+  body('location.state').optional().trim().notEmpty().withMessage('State is required'),
+  body('location.country').optional().trim().notEmpty().withMessage('Country is required'),
+  body('price.amount').optional().isFloat({ min: 0 }).withMessage('Price must be a positive number'),
+  body('capacity.guests').optional().isInt({ min: 1 }).withMessage('Guest capacity must be at least 1'),
+  body('capacity.bedrooms').optional().isInt({ min: 0 }).withMessage('Bedrooms cannot be negative'),
+  body('capacity.bathrooms').optional().isInt({ min: 0 }).withMessage('Bathrooms cannot be negative'),
+  body('capacity.beds').optional().isInt({ min: 1 }).withMessage('Must have at least 1 bed'),
+  body('images').optional().isArray().withMessage('Images must be an array'),
+  body('amenities').optional().isArray().withMessage('Amenities must be an array')
+], async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message: errors.array()[0].msg });
+    }
+
     const property = await Property.findById(req.params.id);
     
     if (!property) {
@@ -234,6 +269,11 @@ router.put('/:id', auth, async (req, res) => {
     // Check ownership
     if (property.host.toString() !== req.user.id && req.user.role !== 'admin') {
       return res.status(403).json({ message: 'Not authorized to update this property' });
+    }
+
+    // Handle image updates
+    if (req.body.images && req.body.images.length > 0) {
+      req.body.images[0].isPrimary = true;
     }
 
     const updatedProperty = await Property.findByIdAndUpdate(

@@ -6,6 +6,7 @@ import { format, differenceInDays, addDays } from 'date-fns';
 import { FaCalendarAlt, FaUsers, FaCreditCard, FaInfoCircle } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import api from '../utils/api';
+import PaymentForm from './payments/PaymentForm';
 
 const BookingForm = ({ property, onBookingSuccess }) => {
   const { isAuthenticated, user } = useAuth();
@@ -23,6 +24,7 @@ const BookingForm = ({ property, onBookingSuccess }) => {
   });
   
   const [loading, setLoading] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
   const [priceBreakdown, setPriceBreakdown] = useState({
     nightlyRate: 0,
     cleaningFee: 0,
@@ -101,19 +103,14 @@ const BookingForm = ({ property, onBookingSuccess }) => {
     setLoading(true);
     
     try {
-      const response = await api.post('/api/bookings', {
-        propertyId: property._id,
-        checkIn: formData.checkIn.toISOString(),
-        checkOut: formData.checkOut.toISOString(),
-        guests: formData.guests,
-        specialRequests: formData.specialRequests
-      });
-
-      toast.success('Booking request sent successfully!');
+      // Show payment form when dates and guests are selected
+      setShowPayment(true);
+      return;
       
-      if (onBookingSuccess) {
-        onBookingSuccess(response.data.booking);
-      }
+      // This code is unreachable due to the return statement above
+      // if (onBookingSuccess) {
+      //   onBookingSuccess(response.data.booking);
+      // }
       
       // Reset form
       setFormData({
@@ -281,24 +278,53 @@ const BookingForm = ({ property, onBookingSuccess }) => {
           </div>
         )}
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          disabled={loading || !formData.checkIn || !formData.checkOut || totalGuests > property?.capacity?.guests}
-          className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-        >
-          {loading ? (
-            <>
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-              Processing...
-            </>
-          ) : (
-            <>
-              <FaCreditCard className="mr-2" />
-              {property?.availability?.instantBookable ? 'Instant Book' : 'Request to Book'}
-            </>
-          )}
-        </button>
+        {!showPayment ? (
+          <button
+            type="submit"
+            disabled={loading || !formData.checkIn || !formData.checkOut || totalGuests > property?.capacity?.guests}
+            className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+          >
+            <FaCreditCard className="mr-2" />
+            Continue to Payment
+          </button>
+        ) : (
+          <PaymentForm
+            amount={priceBreakdown.total}
+            onSuccess={async (paymentMethod) => {
+              try {
+                const response = await api.post('/api/bookings', {
+                  propertyId: property._id,
+                  checkIn: formData.checkIn.toISOString(),
+                  checkOut: formData.checkOut.toISOString(),
+                  guests: formData.guests,
+                  specialRequests: formData.specialRequests,
+                  paymentMethodId: paymentMethod.id
+                });
+
+                toast.success('Booking confirmed successfully!');
+                if (onBookingSuccess) {
+                  onBookingSuccess(response.data.booking);
+                }
+
+                // Reset form
+                setFormData({
+                  checkIn: null,
+                  checkOut: null,
+                  guests: {
+                    adults: 1,
+                    children: 0,
+                    infants: 0
+                  },
+                  specialRequests: ''
+                });
+                setShowPayment(false);
+              } catch (error) {
+                const message = error.response?.data?.message || 'Failed to create booking';
+                toast.error(message);
+              }
+            }}
+          />
+        )}
 
         {property?.availability?.instantBookable && (
           <p className="text-xs text-gray-600 text-center">

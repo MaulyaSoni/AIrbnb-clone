@@ -69,6 +69,14 @@ const bookingSchema = new mongoose.Schema({
     enum: ['pending', 'paid', 'refunded', 'failed'],
     default: 'pending'
   },
+  paymentDetails: {
+    paymentIntentId: String,
+    paymentMethodId: String,
+    stripeCustomerId: String,
+    receiptUrl: String,
+    lastFour: String,
+    cardBrand: String
+  },
   specialRequests: {
     type: String,
     maxlength: [500, 'Special requests cannot exceed 500 characters']

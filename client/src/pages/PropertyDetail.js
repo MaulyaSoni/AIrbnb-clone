@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { FaMapMarkerAlt, FaStar, FaBed, FaBath, FaUsers, FaHeart, FaShare, FaPhone, FaEnvelope } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaStar, FaBed, FaBath, FaUsers, FaHeart, FaShare, FaPhone, FaEnvelope, FaUser } from 'react-icons/fa';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
 import BookingForm from '../components/BookingForm';
