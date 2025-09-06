@@ -12,6 +12,7 @@ import {
   FaHeart,
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -64,7 +65,9 @@ const Navbar = () => {
   };
 
   const navbarClasses = `fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-    isScrolled ? "bg-white shadow-md py-3" : "bg-white py-3"
+    isScrolled
+      ? "bg-white dark:bg-gray-800 shadow-md py-3"
+      : "bg-white dark:bg-gray-800 py-3"
   }`;
 
   const menuVariants = {
@@ -124,13 +127,13 @@ const Navbar = () => {
                       e.stopPropagation();
                       setIsProfileMenuOpen(!isProfileMenuOpen);
                     }}
-                    className="flex items-center space-x-2 bg-white border border-gray-300 rounded-full py-1.5 px-3 hover:shadow-md transition-all duration-200"
+                    className="flex items-center space-x-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-full py-1.5 px-3 hover:shadow-md transition-all duration-200"
                   >
-                    <FaUser className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm font-medium">{user?.name}</span>
+                    <FaUser className="w-4 h-4 text-gray-500 dark:text-gray-300" />
+                    <span className="text-sm font-medium text-gray-800 dark:text-gray-200">{user?.name}</span>
                   </button>
                   {isProfileMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-airbnb py-1 z-50 menu-container">
+                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-lg shadow-airbnb py-1 z-50 menu-container">
                       <Link to="/profile" className="dropdown-item" onClick={() => setIsProfileMenuOpen(false)}>Profile</Link>
                       <Link to="/my-properties" className="dropdown-item" onClick={() => setIsProfileMenuOpen(false)}>My Properties</Link>
                       <button onClick={handleLogout} className="dropdown-item w-full text-left">Logout</button>
@@ -141,9 +144,10 @@ const Navbar = () => {
             ) : (
               <>
                 <Link to="/login" className="nav-link">Login</Link>
-                <Link to="/register" className="bg-airbnb-red text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-airbnb-dark transition-colors duration-200">Register</Link>
+                <Link to="/register" className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors duration-200">Register</Link>
               </>
             )}
+            <ThemeToggle />
           </div>
 
           {/* Mobile Menu Button */}
@@ -164,7 +168,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="md:hidden bg-white shadow-lg absolute top-full left-0 right-0"
+            className="md:hidden bg-white dark:bg-gray-800 shadow-lg absolute top-full left-0 right-0"
             initial="closed"
             animate="open"
             exit="closed"
@@ -202,9 +206,9 @@ const Navbar = () => {
 };
 
 // Common styles
-const navLinkClasses = "text-gray-700 hover:text-airbnb-red px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200";
-const dropdownItemClasses = "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200";
-const mobileLinkClasses = "flex items-center px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-gray-100 hover:text-airbnb-red transition-colors duration-200";
+const navLinkClasses = "text-gray-700 dark:text-gray-200 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200";
+const dropdownItemClasses = "block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200";
+const mobileLinkClasses = "flex items-center px-3 py-2 rounded-md text-base font-medium text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary transition-colors duration-200";
 
 // Attach styles globally
 Object.assign(Navbar, {

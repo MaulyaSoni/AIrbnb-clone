@@ -1,39 +1,51 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
-    "./src/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
     "./public/index.html"
   ],
   theme: {
     extend: {
       colors: {
+        // Airbnb brand palette
+        "airbnb-red": "#FF385C",
+        "airbnb-red-dark": "#E61E4D",
+        "airbnb-pink": "#FF5A5F",
+        "airbnb-gray": "#717171",
+        "airbnb-light": "#F7F7F7",
+        "airbnb-dark": "#222222",
+
+        // Semantic aliases
         primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+          DEFAULT: "#FF385C",  // main red
+          dark: "#E53251",
         },
-        airbnb: {
-          red: '#FF5A5F',
-          pink: '#FF385C',
-          dark: '#222222',
-          light: '#F7F7F7'
-        }
+        background: {
+          light: "#F7F7F7",
+          dark: "#1a202c",
+        },
+        text: {
+          light: "#222222",
+          dark: "#E2E8F0",
+        },
+        card: {
+          light: "#FFFFFF",
+          dark: "#2D3748",
+        },
+        border: {
+          light: "#DDDDDD",
+          dark: "#4A5568",
+        },
       },
       fontFamily: {
-        sans: ['Circular', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+        sans: ["Circular", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
       },
       boxShadow: {
-        'airbnb': '0 6px 16px rgba(0,0,0,0.12)',
-        'airbnb-hover': '0 2px 8px rgba(0,0,0,0.15)',
-      }
+        "airbnb": "0 6px 16px rgba(0,0,0,0.12)",
+        "airbnb-hover": "0 2px 8px rgba(0,0,0,0.15)",
+      },
     },
   },
   plugins: [],
-}
+};

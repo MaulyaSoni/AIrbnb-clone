@@ -151,10 +151,20 @@ const propertySchema = new mongoose.Schema({
       default: 0
     }
   },
+  reviews: [
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Review'
+  }
+], 
   views: {
     type: Number,
     default: 0
   },
+  reviews: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Review'
+  }],
   tags: [String]
 }, {
   timestamps: true

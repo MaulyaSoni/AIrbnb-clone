@@ -94,6 +94,11 @@ const BookingForm = ({ property, onBookingSuccess }) => {
       return;
     }
 
+    if (!property) {
+      toast.error('Property information is not available. Please try again.');
+      return;
+    }
+
     const totalGuests = formData.guests.adults + formData.guests.children + formData.guests.infants;
     if (totalGuests > property.capacity.guests) {
       toast.error(`This property can only accommodate ${property.capacity.guests} guests`);

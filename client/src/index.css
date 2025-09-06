@@ -11,6 +11,7 @@
 
 @layer base {
   body {
+    @apply bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark;
     font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -19,18 +20,18 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-airbnb-pink hover:bg-airbnb-red text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200;
+    @apply bg-primary hover:bg-primary-dark text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200;
   }
   
   .btn-secondary {
-    @apply bg-white hover:bg-gray-50 text-airbnb-dark font-medium py-3 px-6 rounded-lg border border-gray-300 transition-colors duration-200;
+    @apply bg-card-light dark:bg-card-dark hover:bg-gray-50 dark:hover:bg-gray-700 text-text-light dark:text-text-dark font-medium py-3 px-6 rounded-lg border border-border-light dark:border-border-dark transition-colors duration-200;
   }
   
   .card {
-    @apply bg-white rounded-xl shadow-airbnb hover:shadow-airbnb-hover transition-shadow duration-200;
+    @apply bg-card-light dark:bg-card-dark rounded-xl shadow-airbnb hover:shadow-airbnb-hover transition-shadow duration-200;
   }
   
   .input-field {
-    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-airbnb-pink focus:border-transparent outline-none transition-all duration-200;
+    @apply w-full px-4 py-3 bg-transparent border border-border-light dark:border-border-dark rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200;
   }
 }

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { FaSearch, FaMapMarkerAlt, FaCalendarAlt, FaUsers } from 'react-icons/fa';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
-
 const Home = () => {
   const [featuredProperties, setFeaturedProperties] = useState([]);
   const [loading, setLoading] = useState(true);
