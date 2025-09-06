@@ -38,12 +38,12 @@ const BookingForm = ({ property, onBookingSuccess }) => {
     if (formData.checkIn && formData.checkOut && property) {
       const nights = differenceInDays(formData.checkOut, formData.checkIn);
       if (nights > 0) {
-        const nightlyRate = property.price.amount;
-        const cleaningFee = property.price.cleaningFee || 0;
-        const serviceFee = property.price.serviceFee || 0;
-        const taxes = property.price.taxes || 0;
+        const nightlyRate = property?.price?.amount ?? property?.pricePerNight ?? 0;
+        const cleaningFee = property?.price?.cleaningFee || 0;
+        const serviceFee = property?.price?.serviceFee || 0;
+        const taxes = property?.price?.taxes || 0;
         const total = (nightlyRate * nights) + cleaningFee + serviceFee + taxes;
-        
+
         setPriceBreakdown({
           nightlyRate,
           cleaningFee,
@@ -100,7 +100,7 @@ const BookingForm = ({ property, onBookingSuccess }) => {
     }
 
     const totalGuests = formData.guests.adults + formData.guests.children + formData.guests.infants;
-    if (totalGuests > property.capacity.guests) {
+    if (property?.capacity?.guests != null && totalGuests > property.capacity.guests) {
       toast.error(`This property can only accommodate ${property.capacity.guests} guests`);
       return;
     }
@@ -146,7 +146,7 @@ const BookingForm = ({ property, onBookingSuccess }) => {
     <div className="bg-white rounded-xl shadow-airbnb p-6 border border-gray-200">
       <div className="mb-6">
         <h3 className="text-2xl font-semibold text-gray-900 mb-2">
-          ${property?.price?.amount} <span className="text-gray-600 text-lg">night</span>
+          ${property?.price?.amount ?? property?.pricePerNight ?? 0} <span className="text-gray-600 text-lg">night</span>
         </h3>
         {property?.rating?.average > 0 && (
           <div className="flex items-center text-sm text-gray-600">
@@ -221,9 +221,9 @@ const BookingForm = ({ property, onBookingSuccess }) => {
               </select>
             </div>
           </div>
-          {totalGuests > property?.capacity?.guests && (
+          {totalGuests > (property?.capacity?.guests ?? Infinity) && (
             <p className="text-red-500 text-sm mt-1">
-              Maximum {property.capacity.guests} guests allowed
+              Maximum {property?.capacity?.guests} guests allowed
             </p>
           )}
         </div>
@@ -286,7 +286,12 @@ const BookingForm = ({ property, onBookingSuccess }) => {
         {!showPayment ? (
           <button
             type="submit"
-            disabled={loading || !formData.checkIn || !formData.checkOut || totalGuests > property?.capacity?.guests}
+            disabled={
+              loading ||
+              !formData.checkIn ||
+              !formData.checkOut ||
+              (property?.capacity?.guests != null && totalGuests > property.capacity.guests)
+            }
             className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
           >
             <FaCreditCard className="mr-2" />
