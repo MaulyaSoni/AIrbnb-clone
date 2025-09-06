@@ -119,6 +119,17 @@ const PropertyDetail = () => {
                 </div>
               ))}
             </Carousel>
++            <Carousel indicators controls keyboard wrap interval={null} className="rounded-xl shadow-lg overflow-hidden">
++              {property.images?.map((img, index) => (
++                <Carousel.Item key={index}>
++                  <img
++                    src={img?.url || img}
++                    alt={`${property.title} ${index + 1}`}
++                    className="d-block w-100 object-cover h-[500px]"
++                  />
++                </Carousel.Item>
++              ))}
++            </Carousel>
 
             {/* Property Details */}
             <div className="mt-8">
@@ -133,24 +144,30 @@ const PropertyDetail = () => {
               {/* Rating */}
               <div className="flex items-center mb-4">
                 <FaStar className="text-yellow-500 mr-1" />
-                <span>
-                  {property.averageRating?.toFixed(1) || 'New'} ({property.reviews?.length || 0} reviews)
-                </span>
+-                <span>
+-                  {property.averageRating?.toFixed(1) || 'New'} ({property.reviews?.length || 0} reviews)
+-                </span>
++                <span>
++                  {(property?.rating?.average ? property.rating.average.toFixed(1) : 'New')} ({property?.rating?.count || property?.reviews?.length || 0} reviews)
++                </span>
               </div>
 
               {/* Features */}
               <div className="grid grid-cols-3 gap-4 mb-6 text-center">
                 <div>
                   <FaBed className="text-2xl mx-auto mb-1" />
-                  <p>{property.bedrooms} Beds</p>
+-                  <p>{property.bedrooms} Beds</p>
++                  <p>{property?.capacity?.beds ?? property?.capacity?.bedrooms ?? 0} Beds</p>
                 </div>
                 <div>
                   <FaBath className="text-2xl mx-auto mb-1" />
-                  <p>{property.bathrooms} Baths</p>
+-                  <p>{property.bathrooms} Baths</p>
++                  <p>{property?.capacity?.bathrooms ?? 0} Baths</p>
                 </div>
                 <div>
                   <FaUsers className="text-2xl mx-auto mb-1" />
-                  <p>{property.maxGuests} Guests</p>
+-                  <p>{property.maxGuests} Guests</p>
++                  <p>{property?.capacity?.guests ?? 0} Guests</p>
                 </div>
               </div>
 
@@ -210,7 +227,7 @@ const PropertyDetail = () => {
           <div className="lg:col-span-1">
             <div className="sticky top-24 bg-white p-6 rounded-xl shadow-lg">
               <div className="text-2xl font-bold mb-4">${property.pricePerNight} / night</div>
-              <BookingForm propertyId={id} pricePerNight={property.pricePerNight} />
+              <BookingForm property={property} />
 
               <div className="mt-6 flex justify-between">
                 <button
